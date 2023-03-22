@@ -2,6 +2,7 @@ const moment = require("moment/moment");
 const keys = require("./keys");
 
 const MongoClient = require("mongodb").MongoClient;
+const mongoDB = require('mongodb');
 const url =
   `mongodb+srv://${keys.mongodbuser}:${keys.mongodbpwd}@mitmern.sjy5t2a.mongodb.net/?retryWrites=true&w=majority`;
 
@@ -113,9 +114,11 @@ const registroOperacion = (idUsuario, mail, monto, type) => {
 };
 
 const findOperaciones = (idUsuario) => {
+  console.log(idUsuario);
+  let o_id = new mongoDB.ObjectID(idUsuario);
   return new Promise((resolve, reject) => {
     const collection = db.collection("operaciones");
-    collection.find(`{idUsuario:${idUsuario}}`).toArray(function (err, result) {
+    collection.find({"idUsuario":o_id}).toArray(function (err, result) {
       console.log(result);
       err ? reject(err) : resolve(result);
     });
