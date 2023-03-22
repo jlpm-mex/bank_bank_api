@@ -1,4 +1,6 @@
 const express = require("express");
+const https = require("https");
+
 const app = express();
 const port = 4000;
 const cors = require("cors");
@@ -72,5 +74,6 @@ app.get("/operaciones/:idUsuario", (req,res)=>{
   });
 })
 
-app.listen(port);
+https.createServer(app).listen(port);
+//app.listen(port);
 console.log("app running on port ", port);
